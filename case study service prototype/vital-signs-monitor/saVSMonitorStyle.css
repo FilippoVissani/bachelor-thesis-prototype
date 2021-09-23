@@ -41,10 +41,12 @@ div.general{
     width: 34em;
     height: auto;
     padding: 0.25em;
-    display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #1b2631;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 div.butspacer{
@@ -276,3 +278,11 @@ a.crpy:hover{
     color: #DD1111;
     text-decoration: none;
 }
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+    border: 5px solid #000;
+  }

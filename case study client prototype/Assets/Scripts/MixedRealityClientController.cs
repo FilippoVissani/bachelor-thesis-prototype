@@ -11,12 +11,11 @@ using Vuforia;
 
 public class MixedRealityClientController : MonoBehaviour
 {
-    //public TextMeshPro debug;
     public HologramManager hologramManager;
     private State currentState;
     private Dictionary<string, string> informationDatabase;
     private Dictionary<string, Texture2D> markerImages;
-    private string serverAddress = "http://192.168.40.100/";
+    private string serverAddress = "http://192.168.40.100:8080/";
 
     private void Start()
     {
@@ -48,21 +47,13 @@ public class MixedRealityClientController : MonoBehaviour
 
     IEnumerator GetInformationDatabase()
     {
-        using (UnityWebRequest uwr = UnityWebRequest.Get(serverAddress + "information-database.json"))
+        using (UnityWebRequest uwr = UnityWebRequest.Get(serverAddress + "json/information-database.json"))
         {
             yield return uwr.SendWebRequest();
 
-            if (uwr.result != UnityWebRequest.Result.Success)
+            if (uwr.result == UnityWebRequest.Result.Success)
             {
-                //debug.SetText(uwr.error);
-            }
-            else
-            {
-                // Show results as text
-                //debug.SetText(uwr.downloadHandler.text);
                 informationDatabase = JsonConvert.DeserializeObject<Dictionary<string, string>>(uwr.downloadHandler.text);
-                //debug.SetText(informationDatabase.ContainsKey("marker2").ToString());
-
                 StartCoroutine(DownloadMarkerImages());
             }
         }
@@ -73,21 +64,14 @@ public class MixedRealityClientController : MonoBehaviour
         markerImages = new Dictionary<string, Texture2D>();
         foreach (var marker in informationDatabase.Keys)
         {
-            using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(serverAddress + marker + ".jpg"))
+            using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(serverAddress + "markers/" + marker + ".jpg"))
             {
                 yield return uwr.SendWebRequest();
 
-                if (uwr.result != UnityWebRequest.Result.Success)
+                if (uwr.result == UnityWebRequest.Result.Success)
                 {
-                    //debug.SetText(uwr.error);
-                }
-                else
-                {
-                    // Get downloaded texture once the web request completes
                     var texture = DownloadHandlerTexture.GetContent(uwr);
-
                     markerImages.Add(marker, texture);
-                    //debug.SetText("Image downloaded " + uwr);
                 }
             }
         }
@@ -98,7 +82,6 @@ public class MixedRealityClientController : MonoBehaviour
     {
         var mTarget = VuforiaBehaviour.Instance.ObserverFactory.CreateImageTarget(image, 0.1f, markerName);
 
-        // Add the DefaultObserverEventHandler to the newly created game object
         mTarget.gameObject.AddComponent<DefaultObserverEventHandler>();
     }
 }

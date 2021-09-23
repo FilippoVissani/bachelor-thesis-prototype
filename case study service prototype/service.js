@@ -20,32 +20,32 @@ server.listen(process.env.PORT || 8080, () => {
   console.log(`[SERVER STARTED] ${server.address().port}`);
 });
 
-let sys = 120;
-let dia = 80;
-let map = 93;
-let spo = 100;
-let respirationRate = 14;
-let temperature = 36;
-let pulse = 72;
-let value = 1;
+let sys = 120;//115-125
+let dia = 80;//75-85
+let spo = 97;//96-99
+let respirationRate = 14;//16-20
+let temperature = 36;//35-38
+let pulse = 72;//60-120
 
-function getRandomArbitrary(min, max, floor) {
-  return floor == true ? Math.floor(Math.random() * (max - min) + min) : Number.parseFloat(Math.random() * (max - min) + min).toFixed(1);
+function getRandomArbitrary(actual, min, max) {
+ let rand = Number.parseFloat(Math.random() * 3 + 1).toFixed(1);
+ rand = Math.random() < 0.5 ? parseFloat(rand)*parseFloat(-1) : parseFloat(rand)*parseFloat(1)
+ let newVal = Math.floor(parseFloat(actual)+parseFloat(rand));
+ return (newVal >= min && newVal <= max) ? newVal : actual;
 }
 
 function updateParams() {
-  sys = getRandomArbitrary(sys - value, sys + value, true);
-  dia = getRandomArbitrary(dia - value, dia + value, true);
-  map = getRandomArbitrary(map - value, map + value, true);
-  spo = getRandomArbitrary(spo - value, spo + value, true);
-  respirationRate = getRandomArbitrary(respirationRate - value, respirationRate + value, true);
-  temperature = getRandomArbitrary(temperature - value, temperature + value, false);
-  pulse = getRandomArbitrary(pulse - value, pulse + value, true);
+  sys = getRandomArbitrary(sys, 115, 125, true);
+  dia = getRandomArbitrary(dia, 75, 85, true);
+  spo = getRandomArbitrary(spo, 96, 99, true);
+  respirationRate = getRandomArbitrary(respirationRate, 16, 20, true);
+  temperature = getRandomArbitrary(temperature, 35, 38, false);
+  pulse = getRandomArbitrary(pulse, 60, 120, true);
 }
 
 function sendUpdateToClients() {
   updateParams();
-  const json = JSON.stringify({ sys: sys, dia: dia, map: map, spo: spo, respirationRate: respirationRate, temperature: temperature, pulse: pulse });
+  const json = JSON.stringify({ sys: sys, dia: dia, spo: spo, respirationRate: respirationRate, temperature: temperature, pulse: pulse });
   wss.clients.forEach(function each(client) {
     if (client.readyState === WebSocket.OPEN) {
       client.send(json);
@@ -53,4 +53,4 @@ function sendUpdateToClients() {
   });
 }
 
-setInterval(sendUpdateToClients, 8000);
+setInterval(sendUpdateToClients, 3000);
