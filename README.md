@@ -1,4 +1,4 @@
-# Three Year Degree Thesis
+# Three Year Degree Thesis Prototype
 With mixed reality, it is possible to create experiences where users can interact with each other and with the environment in new ways.
 These new interactions can be introduced by digitizing real entities and information present in the environment.
 Having a digital representation of a device can allow you to observe its status and control it without having to interact directly with that device. As for the information, it is possible to have representations that highlight certain aspects, useful to the type of user who is exceeding that information.
