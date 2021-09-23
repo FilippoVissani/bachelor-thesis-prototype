@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+
+<head>
+     <title>Vital Signs Monitor</title>
+     <meta http-equiv="imagetoolbar" content="no" />
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+     <link href="saVSMonitorStyle.css" rel="stylesheet" type="text/css" />
+     <script>
+          function updateData(json){
+               var obj = JSON.parse(json);
+               document.getElementById("sys").innerHTML = obj.sys+"/";
+               document.getElementById("dia").innerHTML = obj.dia;
+               document.getElementById("map").innerHTML = obj.map;
+               document.getElementById("spo").innerHTML = obj.spo;
+               document.getElementById("pul").innerHTML = obj.pulse;
+               document.getElementById("res").innerHTML = obj.respirationRate;
+               document.getElementById("tempCF").innerHTML = obj.temperature;
+          }
+
+          let socket = new WebSocket("ws://192.168.40.100:8080");
+
+          socket.onopen = function (e) {
+               console.log("[WEBSOCKET CONNECTED]");
+          };
+
+          socket.onmessage = function (event) {
+               console.log(`[MESSAGE RECEIVED] ${event.data}`);
+               updateData(`${event.data}`);
+          };
+
+          socket.onclose = function (event) {
+               console.log("[CONNECTION CLOSED]");
+          };
+
+          socket.onerror = function (error) {
+               alert(`[ERROR] ${error.message}`);
+          };
+
+
+     </script>
+
+     <div class="general">
+          <h1 class="vs">Vital Signs Monitor</h1>
+          <div class="row">
+               <div class="ptData">
+                    <span class="ptd" id="pt1">&#8202;</span><span class="ptd" id="pt2"></span><span class="ptd"
+                         id="pt3"></span>&#8202;
+               </div>
+          </div>
+          <div class="row">
+               <div class="ebox">NIBP&#8201;
+                    <span id="sys" class="sys">&#8259;&#8259;&#8259;&#8259;&#8201;&#8725;</span>
+                    <span id="dia" class="dia">&#8202;&#8259;&#8259;&#8259;&#8259;</span>MAP(
+                    <span id="map" class="map">&#8259;&#8259;&#8259;&#8259;</span>)
+               </div>
+          </div>
+          <div class="row">
+               <div class="sbox">SpO&#8322; <span id="spo" class="spo">&#8259;&#8259;&#8259;&#8259;</span> %</div>
+               <div class="sbox">Pulse <span id="pul" class="spo">&#8259;&#8259;&#8259;&#8259;</span></div>
+          </div>
+          <div class="row">
+               <div class="sbox">RR <span id="res" class="res">&#8259;&#8259;&#8259;&#8259;</span></div>
+               <div class="sbox">T <span id="tempCF" class="tempCF">&#8259;&#8259;&#8259;.&#8259;</span><span
+                         id="cf">&deg;C</span></div>
+          </div>
+          <p class="copyrightprivacy"><a href="http://www.barrymrobinson.ca/" target="_blank" class="crpy">Copyright
+                    &copy;
+     </div>
+     </body>
+
+</html>
