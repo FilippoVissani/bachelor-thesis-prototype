@@ -24,4 +24,4 @@ At this point the marker object is instantiated, so when you look at it it can b
 When the marker is recognized by the prototype, a button is created that allows you to instantiate the associated prefab.
 Once the holograms have been instantiated, the user is free to position the holograms within the environment as he prefers.
 
-![ECG Hologram](/images/ecg-hologram.jpg)
+![ECG Hologram](/images/holograms.jpg)
