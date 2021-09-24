@@ -820,7 +820,7 @@ MonoBehaviour:
   visualizationObject: {fileID: 0}
   interactableObject: {fileID: 0}
   autoFollowAtDistance: 0
-  autoFollowDistance: 2
+  autoFollowDistance: 1
   autoFollowTransformTarget: {fileID: 0}
   autoFollowTriggered:
     m_PersistentCalls:
@@ -2023,7 +2023,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7280923761918698272}
+      - m_Target: {fileID: 4573523266504476113}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -3553,7 +3553,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 503614213437618746, guid: 87137c99455988444b00b42891132b97, type: 3}
       propertyPath: m_text
-      value: Paziente Mario Rossi - Dati ECG
+      value: Paziente Mario Rossi - Risultati ECG
       objectReference: {fileID: 0}
     - target: {fileID: 2853728788852444523, guid: 87137c99455988444b00b42891132b97, type: 3}
       propertyPath: m_Mesh
