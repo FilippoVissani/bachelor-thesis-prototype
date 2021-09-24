@@ -23,3 +23,6 @@ In this case the Json file contains an entry like this: "marker1": "heart".
 At this point the marker object is instantiated, so when you look at it it can be detected correctly.
 When the marker is recognized by the prototype, a button is created that allows you to instantiate the associated prefab.
 Once the holograms have been instantiated, the user is free to position the holograms within the environment as he prefers.
+
+![ECG Hologram](/images/ecg-hologram.jpg)
+Format: ![Alt Text](url)
