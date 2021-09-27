@@ -80,7 +80,7 @@ public class MixedRealityClientController : MonoBehaviour
 
     private void CreateImageTargetFromTexture(string markerName, Texture2D image)
     {
-        var mTarget = VuforiaBehaviour.Instance.ObserverFactory.CreateImageTarget(image, 0.1f, markerName);
+        var mTarget = VuforiaBehaviour.Instance.ObserverFactory.CreateImageTarget(image, 0.04f, markerName);
 
         mTarget.gameObject.AddComponent<DefaultObserverEventHandler>();
     }
